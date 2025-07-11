@@ -44,14 +44,50 @@
 </center>
 
 
-<!--<a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-      localStorage.removeItem('access_token');
-      console.log('User signed out.');
-      window.location = "/";
-    };
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script type="module">
+import { degrees, PDFDocument, rgb, StandardFonts } from 'https://cdn.skypack.dev/pdf-lib';
+window.modifyPdf = async function modifyPdf() {
+  alert('somewhat working!')
+  const url = 'certificate.pdf';
+  const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+  const pdfDoc = await PDFDocument.load(existingPdfBytes);
+  const TimesNewRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+  const pages = pdfDoc.getPages();
+  const firstPage = pages[0];
+  const { width, height } = firstPage.getSize();
+  firstPage.drawText("This will be user name, need to pull from google data and django sessions",{
+    x: 50,
+    y: 50,
+    size: 50,
+    font: TimesNewRomanFont,
+    color: rgb(0,0,0),
+    });
+  const pdfBytes = await pdfDoc.save();
+  var blob = new Blob([pdfBytes], {type: "application/pdf"});
+  var link = window.URL.createObjectURL(blob);
+  window.PDFObject.embed(link, "#test_xx" );
+}
 </script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>-->
+<script>
+function LogOut() {
+  alert("HELLO");
+  google.accounts.id.disableAutoSelect();
+  window.location="/";
+}
+
+<button onclick="LogOut()">Sign Out</button>
+
+
+function LogOut() {
+  alert("HELLO");
+  google.accounts.id.disableAutoSelect();
+  window.location="/";
+}
+</script>
+<button onclick="LogOut()">Sign Out</button>
+<button onclick="modifyPdf()">Generate Certificate</button>
 </body>
 </html>

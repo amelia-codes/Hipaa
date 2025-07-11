@@ -1,9 +1,4 @@
-<?php 
 
-    session_start(); 
-    $_SESSION["authenticated"] == true;
-
-?>
 
 <!DOCTYPE html>
 <html>
@@ -82,7 +77,7 @@ div {text-align: center;}
         <li class="nav-item">
           <a class="nav-link active" href="/">Home</a>
         </li>
- 
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" >
                                     <b>Training Course</b>
@@ -94,6 +89,16 @@ div {text-align: center;}
             <li><a class="dropdown-item" onclick="location.href='section4'">Section 4</a></li>
             <li><a class="dropdown-item" onclick="location.href='section5'">Section 5</a></li>
           </ul>
+        </li>
+
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+               <li>
+        
+            <form method="post" action="{% url 'logout_session' %}">
+            {% csrf_token %}
+                <button type="submit">logout</button>
+            </form>
         </li>
     </ul>
     </div>
