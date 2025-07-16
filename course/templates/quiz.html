@@ -483,7 +483,6 @@ FIX PUNCTUATION
         let percent=(score/16)*100;
         console.log("Percent: ", percent);
         const csrftoken = document.querySelector('meta[name="csrf-token"]')?.content;
-        console.log("CSRF token:", csrftoken);
         fetch('/training/quiz/updatepercent/',{
             method:"POST", 
             headers: { 'Content-Type': 'application/json','X-CSRFToken': csrftoken},

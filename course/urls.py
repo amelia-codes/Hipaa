@@ -14,5 +14,7 @@ urlpatterns = [path('training/',views.training,name='training'),
                path('certificate',views.certificate,name='certificate'),
                path('getenvvar/', views.getenvvar,name='getenvvar'),
                path('statement/',views.statement,name='statement'),
-               path('unauthorized/',views.unauthorized,name='unauthorized'),]
+               path('unauthorized/',views.unauthorized,name='unauthorized'),
+               path('loginrequired/',views.loginrequired,name='loginrequired'),
+               path('updateawknowledgement/',views.updateawknowledgement,name='updateawknowledgement'),]
 

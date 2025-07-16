@@ -19,108 +19,119 @@ from . import models
 from dotenv import load_dotenv
 import json
 from django.views.decorators.cache import never_cache
+from django.contrib import messages
 
+#loading webpages
 def homepage(request):
-    template = loader.get_template('homepage.html')
-    return HttpResponse(template.render())
+    return render(request, 'homepage.html')
+def loginrequired(request):
+    return render(request, 'loginrequired.html')
 @login_required
 def training(request):
-    print('trying to load')
-    template = loader.get_template('training.html')
-    return render(request,'training.html')
+    try:
+        return render(request,'training.html')
+    except:
+        return render(request, 'unauthorized.html')
 @never_cache
 @login_required
 def quiz(request):
-    template = loader.get_template('quiz.html')
-    questions = Ques.objects.all()
     current_user=request.user.validuser
     if current_user.attempt<=2:
         return render(request,'quiz.html')
     else:
-        return HttpResponse('Maximum attempts exceeded')
+        messages.error(request,"Maximum Attempt Exceeded")
+        return redirect('/training/section4')
 @login_required
 def section2(request):
-    template = loader.get_template('section2.php')
-    return HttpResponse(template.render())
+    try:
+        return render(request, 'section2.html')
+    except:
+        return render(request, 'unauthorized.html')
 @login_required
 def section3(request):
-    #template = loader.get_template('section3.html')
     return render(request,'section3.html')
 @login_required
 def section4(request):
-    template = loader.get_template('section4.html')
-    return HttpResponse(template.render())
+    return render(request, 'section4.html')
 @login_required
 def section5(request):
-    template = loader.get_template('section5.html')
-    return HttpResponse(template.render())
+    return render(request, 'section5.html')
 @login_required
 def certificate(request):
-    template = loader.get_template('certificate.html')
-    return HttpResponse(template.render())
+    user = request.user
+    validuser = ValidUser.objects.get(user=user)
+    context = {'validuser' : validuser}
+    if validuser.score >=70:
+        return render(request,'certificate.html',context)
+    else:
+        return HttpResponse(status=403)
 @login_required
 def statement(request):
-    template = loader.get_template('statement.html')
-    return HttpResponse(template.render())
+    user = request.user
+    validuser = ValidUser.objects.get(user=user)
+    if validuser.score >=70:
+        return render(request, 'statement.html')
+    else:
+        return HttpResponse(status=403)
 def unauthorized(request):
-    template = loader.get_template('unauthorized.html')
-    return HttpResponse(template.render())
+    return render(request, 'unauthorized.html')
 
+#login
 @csrf_exempt
 def login(request):
     load_dotenv()
-    print('requestattempt')
     token=request.POST.get('credential')
     try:
-        print("login")
         user_data = id_token.verify_oauth2_token(
             token, requests.Request(), os.getenv("CLIENT_ID")
         )
         email = user_data['email']
         name = user_data['name']
-        print(name)
-        print(email)
         allowed = ValidUser.objects.values_list('email', flat=True)
+        #once google authenticates login, check that google email is actually in approved user list
         if email in allowed:
-            print(allowed)
-            request.session['username'] = email
-            #save email as user id to database and attach score
+            #create user if not created
             user,created = User.objects.get_or_create(email=email,defaults={'username':email,'name':name})
-            print('almostvaliduser')
             validuser,validcreated = ValidUser.objects.get_or_create(user=user, email=email, name=name)
-            print('validuser')
-            user.backend = 'django.contrib.auth.backends.ModelBackend' #figure out later
-            print('loading')
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
             login_user(request,user)
-            print('done')
             return redirect('training')
         else:
             return redirect('unauthorized')
+    #invalid token etc
     except ValueError:
         return HttpResponse(status=403)
 
+#logout
 def logout_session(request):
     if request.method == 'POST':
-        print('logout')
-        current_user=request.user.validuser
         logout_user(request)
-        print('i think it works?')
         return redirect('homepage')
+
+#load environmental variable "client id"
 def getenvvar(request):
     load_dotenv()
     print('request')
     clientid=os.getenv("CLIENT_ID")
     return JsonResponse({'client_id': clientid})
 
+#add quiz score to user, update attempt number
 def updatepercent(request):
     print('updatepercent')
     current_user=request.user.validuser
     current_user.score=json.loads(request.body).get('percent')
-    #current_user.score=request.POST.get('percent')#make it so can't access quiz again
     print(current_user.score)
     current_user.attempt+=1
     current_user.save()
     return JsonResponse({'status':'success' })
+
+def updateawknowledgement(request):
+    print("request recieved")
+    current_user=request.user.validuser
+    current_user.awknowledge=True
+    current_user.save()
+    return JsonResponse({'status':'success'})
+
 
 #def updateprogress(request):
 #    user.progress+=0#someamount

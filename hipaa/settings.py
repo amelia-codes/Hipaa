@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
 from dotenv import load_dotenv
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -28,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+MESSAGE_TAGS = {
+    messages.ERROR: 'alert-danger',
+}
 
 # Application definition
 
@@ -138,6 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
+LOGIN_URL = '/loginrequired/'
 LOGIN_REDIRECT_URL = 'training/'
 LOGOUT_REDIRECT_URL = '/'
 

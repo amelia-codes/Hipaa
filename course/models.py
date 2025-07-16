@@ -18,4 +18,5 @@ class ValidUser(models.Model):
     progress=models.IntegerField(default=0)
     name=models.CharField(max_length=225)
     attempt=models.IntegerField(default=0)
+    awknowledge=models.BooleanField(default=False)
 
