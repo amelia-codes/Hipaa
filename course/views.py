@@ -24,8 +24,7 @@ from django.contrib import messages
 #loading webpages
 def homepage(request):
     return render(request, 'homepage.html')
-def loginrequired(request):
-    return render(request, 'loginrequired.html')
+
 @login_required
 def training(request):
     try:
@@ -49,13 +48,17 @@ def section2(request):
         return render(request, 'unauthorized.html')
 @login_required
 def section3(request):
+    #try:
     return render(request,'section3.html')
+        #except:
+        #return render(request, 'unauthorized.html')
 @login_required
 def section4(request):
-    return render(request, 'section4.html')
-@login_required
-def section5(request):
-    return render(request, 'section5.html')
+    try:
+        return render(request, 'section4.html')
+    except:
+        return render(request, 'unauthorized.html')
+
 @login_required
 def certificate(request):
     user = request.user
@@ -64,7 +67,7 @@ def certificate(request):
     if validuser.score >=70:
         return render(request,'certificate.html',context)
     else:
-        return HttpResponse(status=403)
+        return render(request, 'unauthorized.html')
 @login_required
 def statement(request):
     user = request.user
@@ -72,7 +75,7 @@ def statement(request):
     if validuser.score >=70:
         return render(request, 'statement.html')
     else:
-        return HttpResponse(status=403)
+        return render(request, 'unauthorized.html')
 def unauthorized(request):
     return render(request, 'unauthorized.html')
 
@@ -86,10 +89,14 @@ def login(request):
             token, requests.Request(), os.getenv("CLIENT_ID")
         )
         email = user_data['email']
+        print(email)
         name = user_data['name']
+        #note to be approved in this app you must go in admin and add the persons name, email to valid user
         allowed = ValidUser.objects.values_list('email', flat=True)
+        print(allowed)
         #once google authenticates login, check that google email is actually in approved user list
         if email in allowed:
+            print(allowed)
             #create user if not created
             user,created = User.objects.get_or_create(email=email,defaults={'username':email,'name':name})
             validuser,validcreated = ValidUser.objects.get_or_create(user=user, email=email, name=name)
@@ -133,6 +140,8 @@ def updateawknowledgement(request):
     return JsonResponse({'status':'success'})
 
 
-#def updateprogress(request):
-#    user.progress+=0#someamount
-#    user.save()
+def updateprogress(request):
+    current_user=request.user.validuser
+    current_user.progress=json.loads(request.body).get('progress')
+    current_user.save()
+    return JsonResponse({'status':'success'})

@@ -5,16 +5,15 @@ p {text-align: center;}
 div {text-align: center;}
 </style>
 <head>
+{{ validuser.progress|json_script:"user_progress" }}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ" crossorigin="anonymous"></script>
         <style>
         body {
-        padding:50px;
+        background: linear-gradient(black, #001f3d); 
         font-family: 'Arial';
 }
-    </style>
-    <style>
         .btn-group button {
         #background-color: #EEEEEE;
         #border: 1px solid black; 
@@ -25,39 +24,20 @@ div {text-align: center;}
         display: block !important;
         font-size:1rem;
 }
-    </style>
-    <style>
-        .header {
-        background: #012840;
-        margin: 0;
-        padding: 50;
-        width=100%
-}
-    </style>
-    <style>
-    .btn-primary {
-    background-color: #EEEEEE !important;
-    color: black;
-    border: white;
-    font-weight: bold;
-    padding: 200px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-size: 30px;
-}
-    .btn-group button {
-    background-color: #EEEEEE; /* Green background */
-    border: 1px solid black; /* Green border */
-    color: black; /* White text */
-    padding: 10px 150px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
-    text-align: center;
-}
-    </style>
-
+        .btn-primary {
+        background-color: #EEEEEE !important;
+        color: black;
+        border: white;
+        font-weight: bold;
+        padding: 200px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 30px;
+} 
+        </style>
+</head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark py-4" style="width: 100%; background-color: #0077b6">
   <div class="container-fluid"> 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -67,80 +47,106 @@ div {text-align: center;}
         <li class="nav-item">
           <a class="nav-link active" href="/">Home</a>
         </li>
+ 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#"  role="button" data-bs-toggle="dropdown" >
-        <b>Training Course</b>
+            <b>Training Course</b>
           </a>
-
             <ul class="dropdown-menu">
             <li><a class="dropdown-item" onclick="location.href='/training'">Section 1</a></li>
             <li><a class="dropdown-item" onclick="location.href='section2'">Section 2</a></li>
             <li><a class="dropdown-item" onclick="location.href='section3'">Section 3</a></li>
             <li><a class="dropdown-item" onclick="location.href='section4'">Section 4</a></li>
-            <li><a class="dropdown-item" onclick="location.href='section5'">Section 5</a></li>
+
           </ul>
+        </li>
+        
+    </ul>
+        <ul class="nav navbar-nav navbar-right">
+               <li>
+        
+            <form method="post" action="{% url 'logout_session' %}" id="logoutuser">
+            {% csrf_token %}
+                <a class="nav-link active" href="#" onclick="document.getElementById('logoutuser').submit(); return false"> Logout</a> 
+            </form>
         </li>
     </ul>
     </div>
   </div>
-</nav>
-</head>
-<body>
+</nav><br><br>
+<div class="rounded-3 p-4, mx-auto" style="background-color: #FFFFFF; max-width: 1000px;">
+<div class="container" style="padding:30px">
 <center>
-<img src="https://nexusla.org/wp-content/uploads/2024/06/3THealth_Original_Color@4x-100-scaled.jpg" alt="logo" width="30%" height="30%"/>
+<img src="https://nexusla.org/wp-content/uploads/2024/06/3THealth_Original_Color@4x-100-scaled.jpg" alt="logo" width="40%"/>
 </center>
 <center>
-    Follow the slides below answering all questions and noting key terms and examples. 
+                    <b>Follow the slides below answering all questions and noting key terms and examples. </b>
 </center><br>
 <center>
 <button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Section 4: Penalties of HIPAA Rule Violations</button>
 </center><br>
 <center>
-<iframe src="https://gtvault-my.sharepoint.com/personal/afargason3_gatech_edu/_layouts/15/Doc.aspx?sourcedoc={7bac3256-2764-4b0f-9efe-3057321824da}&amp;action=embedview&amp;wdAr=1.7777777777777777" width="952px" height="576px" frameborder="0">This is an embedded <a target="_blank" href="https://office.com">Microsoft Office</a> presentation, powered by <a target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRGzgEO6TzGC-JsklH2kG5ivSJC9T5Cn7poknKuuufENI6pbwbpBhhymgaBLyWIjBwZ8-4YyEQGJygx/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="952" height="576" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
 </center><br>
 <center>
-<div  style="margin: 0 200px;"> <b> In this section you learned civil and criminal penalties for violating HIPAA rules...Section 5 will cover 3T Health specific policies. Please complete the following knowledge check before you continue.</b></div><br>
+<div  style="margin: 0 100px;"> <b> In this section you learned civil and criminal penalties for violating HIPAA rules. Please complete the following knowledge check before you continue.</b></div><br>
 </center>
 <center>
-<h2>Question:</h2>
+<div class="rounded-3 p-4, mx-auto" style="background-color: #EEEEEE; max-width: 900px;">
+<div class="container" style="padding:30px">
+<h2><b>Question: The following scenario likely would have which violation cost range. Nurse Y shared PHI breaching HIPAA rules but followed the necessary protocal when confronted about it.</b></h2>
 
-<div class="text" style="margin: 0 200px;">
+<div class="text" style="margin: 0 100px;">
 <div class="form-check" style="text-align: left;">
   <input class="form-check-input" type="radio" name="Q1" id="A1" checked>
   <label class="form-check-label" for="flexRadio">
-    Answer 1
+    $100-$50,000
   </label>
 </div>
 <div class="form-check" style="text-align: left;">
   <input class="form-check-input" type="radio" name="Q1" id="A2" checked>
   <label class="form-check-label" for="flexRadio">
-    Answer 2
+    $1,000-$50,000
 </label>
 </div>
 <div class="form-check" style="text-align: left;">
   <input class="form-check-input" type="radio" name="Q1" id="A3" checked>
   <label class="form-check-label" for="flexRadio">
-    Answer 3
+    $10,000-$50,000
   </label>
 </div>
 </div><br>
-<button type="button" onclick="getscore()">Submit</button><br><br><br>
-
+</div>
+                    </div><br><br>
+<button type="button" onclick="getscore()">Submit</button><br><br>
+<h4 style="color: red" id="wrong"></h4><br><br>
+<div class="progress-bar"id="progress" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+<a href="section3" style="display:none" id="previous" class="btn btn-info" role="button">Previous</a>
+<a href="quiz" style="display:none" id="quiz" class="btn btn-info" role="button">Quiz</a><br><br>
 </center>
 <script>
     function getscore() {
         if (document.getElementById("A3").checked) {
-        window.alert("Correct!")
+        var element = document.getElementById("wrong");
+        element.style.color = "green";
+        element.textContent = "Correct!";
+        const quiz = document.getElementById("quiz");
+        const previous = document.getElementById("previous");
+        previous.style.display = "inline-block";
+        quiz.style.display = "inline-block";
         }
         else {
-        window.alert("Try Again.")
+        var element = document.getElementById("wrong");
+        element.textContent = "Try Again.";
+
+
         }}
 </script>
 
 <center>
 
-<a href="section3" class="btn btn-info" role="button">Previous</a>
-<a href="quiz" class="btn btn-info" role="button">Quiz</a><br><br>
+
 
 {% for message in messages %}
   <div class="alert alert-dismissible {{ message.tags }}" role="alert">
@@ -149,6 +155,7 @@ div {text-align: center;}
   </div>
 {% endfor %}
 </center>
-
+            </div>
+        </div>
 </body>
 </html>

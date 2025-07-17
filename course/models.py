@@ -12,11 +12,12 @@ class Ques(models.Model):
     correctanswer = models.CharField(max_length = 500)
 
 class ValidUser(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True,blank=True)
     email=models.CharField(max_length=255)
     score=models.IntegerField(default=0)
     progress=models.IntegerField(default=0)
     name=models.CharField(max_length=225)
     attempt=models.IntegerField(default=0)
     awknowledge=models.BooleanField(default=False)
+    
 
