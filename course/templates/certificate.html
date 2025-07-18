@@ -14,13 +14,13 @@
     p {text-align: center;}
     div {text-align: center;}
     body {
-    padding:50px;
+    background: linear-gradient(black, #001f3d); 
     font-family: 'Arial';
 }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ <nav class="navbar navbar-expand-lg navbar-dark py-3" style="width: 100%; background-color: #0077b6">
   <div class="container-fluid">
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,19 +32,32 @@
           <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
       </ul>
-      <span class="navbar-text">
-        3T Health HIPAA Training Course
-      </span>
+
+                <ul class="nav navbar-nav navbar-right">
+               <li>
+        
+            <form method="post" action="{% url 'logout_session' %}" id="logoutuser">
+            {% csrf_token %}
+                <a class="nav-link active" href="#" onclick="document.getElementById('logoutuser').submit(); return false"> Logout</a> 
+            </form>
+        </li>
+    </ul>
     </div>
   </div>
 </nav>
-        <center>
-<img src="https://nexusla.org/wp-content/uploads/2024/06/3THealth_Original_Color@4x-100-scaled.jpg" alt="logo" width="30%" height="30%"/>
+<br><br><br><br>
+        
+<div class="rounded-3 p-4, mx-auto" style="background-color: #FFFFFF; max-width: 1000px;">
+<div class="container" style="padding:30px">
+                <center>
+<br><br>
+<img src="https://nexusla.org/wp-content/uploads/2024/06/3THealth_Original_Color@4x-100-scaled.jpg" alt="logo" width="40%"/>
+                    
         </center>
 
 <center>
-<h2><b> Congradulations. You have passed. Download your certificate here. </h2></b>
-<iframe src="https://drive.google.com/file/d/1MliACMgoqkJbTZ1J1Gu_17HCR6KALRpf/preview" width="640" height="480" allow="autoplay"></iframe><br>
+            <h2><b> Congradulations. You have passed. Download your certificate here. </b></h2><br><br>
+
 
 
 <!--<button class="btn btn-info" onclick="signOut();" role="button">Sign Out</button>-->
@@ -61,8 +74,6 @@ window.modifyPdf = async function modifyPdf() {
   const user_name = JSON.parse(document.getElementById('user_name').textContent);
   const fulldate = new Date();
   const current_date = fulldate.toDateString();
-  alert(current_date);
-  alert(user_name);
   const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
   const pdfDoc = await PDFLib.PDFDocument.load(existingPdfBytes);
   const TimesNewRomanFont = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
@@ -109,5 +120,7 @@ function LogOut() {
 <center>
 <button onclick="modifyPdf()">Generate Certificate</button>
 </center>
+</div>
+</div>
 </body>
 </html>

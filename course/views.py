@@ -35,7 +35,7 @@ def training(request):
 @login_required
 def quiz(request):
     current_user=request.user.validuser
-    if current_user.attempt<=2:
+    if current_user.attempt<=15:
         return render(request,'quiz.html')
     else:
         messages.error(request,"Maximum Attempt Exceeded")
@@ -48,10 +48,10 @@ def section2(request):
         return render(request, 'unauthorized.html')
 @login_required
 def section3(request):
-    #try:
-    return render(request,'section3.html')
-        #except:
-        #return render(request, 'unauthorized.html')
+    try:
+        return render(request,'section3.html')
+    except:
+        return render(request, 'unauthorized.html')
 @login_required
 def section4(request):
     try:
@@ -72,6 +72,7 @@ def certificate(request):
 def statement(request):
     user = request.user
     validuser = ValidUser.objects.get(user=user)
+    print(validuser.score)
     if validuser.score >=70:
         return render(request, 'statement.html')
     else:

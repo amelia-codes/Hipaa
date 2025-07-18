@@ -119,10 +119,10 @@ div {text-align: center;}
 </div>
 </div><br>
 
-<button type="button" onclick="getscore()">Submit</button><br><br><br>
-<h4 style="color: red" id="wrong"></h4><br><br>
-<div class="progress" style="margin:0 200px;">
-<div class="progress-bar"id="progress" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    <button type="button" onclick="getscore()">Submit</button><br><br>
+<h4 style="color: red" id="wrong"></h4>
+                    <!--<div class="progress" style="margin:0 200px;">-->
+                    <!--<div class="progress-bar"id="progress" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>-->
 </div><br><br>
 <a id="next" style="display:none" href="section2" class="btn btn-info" role="button">Next</a>
         </center>
@@ -134,21 +134,21 @@ div {text-align: center;}
             var element = document.getElementById("wrong");
             element.style.color = "green";
             element.textContent = "Correct!";
-            const user_progress = JSON.parse(document.getElementById('user_progress').textContent);
-            const progress = document.getElementById("progress");
-            let newprogress = user_progress + 25;
-            progress.style.width = newprogress + "%";
-            progress.setAttribute('aria-valuenow', newprogress);
+            //const user_progress = JSON.parse(document.getElementById('user_progress').textContent);
+            //const progress = document.getElementById("progress");
+            //let newprogress = user_progress + 25;
+            //progress.style.width = newprogress + "%";
+            //progress.setAttribute('aria-valuenow', newprogress);
             const next = document.getElementById("next");
             next.style.display = "inline-block";
-            fetch('/training/quiz/updateprogress/',{
-            method:"POST", 
-            headers: { 'Content-Type': 'application/json','X-CSRFToken': csrftoken},
-            body: JSON.stringify({progress:newprogress}),
-            mode: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(result => console.log(result));
+            //fetch('/training/quiz/updateprogress/',{
+            //method:"POST", 
+            //headers: { 'Content-Type': 'application/json','X-CSRFToken': csrftoken},
+            //body: JSON.stringify({progress:newprogress}),
+            //mode: 'same-origin'
+        //})
+        //.then(response => response.json())
+        //.then(result => console.log(result));
         }
         else {
         var element = document.getElementById("wrong");

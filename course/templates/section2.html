@@ -40,7 +40,7 @@ div {text-align: center;}
     </style>
 </head>
 <body>
- <nav class="navbar fixed-top navbar-expand-lg navbar-dark py-4" style="width: 100%; background-color: #0077b6">
+ <nav class="navbar fixed-top navbar-expand-lg navbar-dark py-3" style="width: 100%; background-color: #0077b6">
   <div class="container-fluid"> 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -134,10 +134,9 @@ div {text-align: center;}
 </div><br>
 </center>
 <center>
-<br><br><button type="button" onclick="getscore()">Submit</button><br><br><br>
-<h4 style="color: red" id="wrong"></h4><br><br>
-<div class="progress" style="margin:0 200px;">
-<div class="progress-bar"id="progress" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+<br><br><button type="button" onclick="getscore()">Submit</button><br><br>
+<h4 style="color: red" id="wrong"></h4>
+
 </div><br><br></center>
 <center>
 <a href="/training" id="previous" style="display:none" class="btn btn-info" role="button">Previous</a>
@@ -149,24 +148,10 @@ div {text-align: center;}
             var element = document.getElementById("wrong");
             element.style.color = "green";
             element.textContent = "Correct!";
-            const user_progress = JSON.parse(document.getElementById('user_progress').textContent);
-            const progress = document.getElementById("progress");
-            let newprogress = user_progress + 25;
-            progress.style.width = newprogress + "%";
-            progress.setAttribute('area-valuenow', newprogress);
             const next = document.getElementById("next");
             const previous = document.getElementById("previous");
             next.style.display = "inline-block";
             previous.style.display = "inline-block";
-            fetch('/training/quiz/updateprogress/',{
-            method:"POST", 
-            headers: { 'Content-Type': 'application/json','X-CSRFToken': csrftoken},
-            body: JSON.stringify({progress:newprogress}),
-            mode: 'same-origin'
-        })
-        .then(response => response.json())
-        .then(result => console.log(result));
-        }
         }
         else {
         var element = document.getElementById("wrong");

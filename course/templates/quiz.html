@@ -9,9 +9,8 @@ p {text-align: center;}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         body {
-            padding:300px;
-            padding-top:100px;
-            margin: 50px;
+            background: linear-gradient(black, #001f3d); 
+            font-family: 'Arial';
         }
     </style>
     <style>
@@ -29,11 +28,37 @@ p {text-align: center;}
 <meta name="csrf-token" content="{{ csrf_token }}">
 </head>
 <body>
+ <nav class="navbar fixed-top navbar-expand-lg navbar-dark py-3" style="width: 100%; background-color: #0077b6">
+  <div class="container-fluid">
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+      </ul>
 
+                <ul class="nav navbar-nav navbar-right">
+               <li>
+        
+            <form method="post" action="{% url 'logout_session' %}" id="logoutuser">
+            {% csrf_token %}
+                <a class="nav-link active" href="#" onclick="document.getElementById('logoutuser').submit(); return false"> Logout</a> 
+            </form>
+        </li>
+    </ul>
+    </div>
+  </div>
+</nav>
+<div class="rounded-3 p-4, mx-auto" style="background-color: #FFFFFF; max-width: 1000px;">
+            <div class="container" style="padding:60px"><br><br>
 <h1>Quiz</h1>
 
 <center>
-There are 20 questions each weighted equally. A passing score is 70% For each of the following, choose the answer that is MOST OR ALWAYS CORRECT. Other answers may be partially correct, or correct in certain cases.
+There are 16 questions each weighted equally. A passing score is 70% For each of the following, choose the answer that is MOST OR ALWAYS CORRECT. Other answers may be partially correct, or correct in certain cases. You may only take the quiz twice.
         </center><br>
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 <form>
@@ -220,13 +245,9 @@ There are 20 questions each weighted equally. A passing score is 70% For each of
   </label>
 </div>
 
-        </div><br>
 
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 9: Which of the following is an allowed method for contacting an indidual about PHI?</button>
 
-Question 10: 3T Health question (who to report to), disposal of phi
-        </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 11: Which of the following is an allowed method for contacting an indidual about PHI?</button>
-FIX PUNCTUATION
 <div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="Q11" id="Q11A1" checked>
@@ -253,7 +274,7 @@ FIX PUNCTUATION
   </label>
 </div>
         </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 12: Provider X works from home and frequently handles patient PHI. Which of the following is not recommended for safeguarding ePHI?</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 10: Provider X works from home and frequently handles patient PHI. Which of the following is not recommended for safeguarding ePHI?</button>
 
 <div>
 <div class="form-check">
@@ -281,7 +302,7 @@ FIX PUNCTUATION
   </label>
 </div>
         </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 13: A covered entity had a breach of PHI, however as a precaution, the CE had encrypted all PHI and rendered it secure and entirely unusuable. Must the CE notify affected individuals?</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 11: A covered entity had a breach of PHI, however as a precaution, the CE had encrypted all PHI and rendered it secure and entirely unusuable. Must the CE notify affected individuals?</button>
 <div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="Q13" id="Q13A1" checked>
@@ -296,7 +317,7 @@ FIX PUNCTUATION
   </label>
 </div>
         </div><br>
- <button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 14: Two doctors discuss treatment options for patient X while getting lunch in the cafeteria. Is this a breach of PHI?</button>
+ <button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 12: Two doctors discuss treatment options for patient X while getting lunch in the cafeteria. Is this a breach of PHI?</button>
 
 <div>
 <div class="form-check">
@@ -324,7 +345,7 @@ FIX PUNCTUATION
   </label>
 </div>
         </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 15: Person X, a Business Associate of the Covered Entity A was not notified of their responsibilities under HIPAA when onboarded. Are they liable for any breach or misuse of PHI?</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 13: Person X, a Business Associate of the Covered Entity A was not notified of their responsibilities under HIPAA when onboarded. Are they liable for any breach or misuse of PHI?</button>
 
 <div>
 <div class="form-check">
@@ -352,7 +373,7 @@ FIX PUNCTUATION
   </label>
 </div>
         </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 16: What can be used to prevent the scenario in the question above?</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 14: What can be used to prevent the scenario in the question above?</button>
 
 <div>
 <div class="form-check">
@@ -382,7 +403,7 @@ FIX PUNCTUATION
         </div><br>
 
 
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 19: If a CE/BA loses their device containing PHI/ePHI, when is it considered a HIPAA violation and what procedure should follow.</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 15: If a CE/BA loses their device containing PHI/ePHI, when is it considered a HIPAA violation and what procedure should follow.</button>
 
 <div>
 <div class="form-check">
@@ -405,7 +426,7 @@ FIX PUNCTUATION
 </div>
 
         </div><br>
-<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 20: Patient X is unconscious. The provider deems it is in the patient's best interes to share PHI with a relative involved in the patient's care. Is this a HIPAA violation?</button>
+<button type="button" class="btn btn-primary btn-block" style="pointer-events: none;">Question 16: Patient X is unconscious. The provider deems it is in the patient's best interes to share PHI with a relative involved in the patient's care. Is this a HIPAA violation?</button>
 
 <div>
 <div class="form-check">
@@ -422,12 +443,15 @@ FIX PUNCTUATION
 </div>
 </div>
 <center>
-<button type="button" onclick="getscore()">Submit</button>
+                            <button type="button" onclick="getscore()">Submit</button><br><br>
         </center>
 
 </form>
-
-
+<center>
+<h4 style="color: red" id="wrong"></h4>
+</center>
+            </div>
+        </div>
 <script>
     let score=0;
     function getscore() {
@@ -494,7 +518,9 @@ FIX PUNCTUATION
         if (percent>=70) {
         window.location.href = "/statement";
         } else {
-        document.write("You Did Not Pass<br>")
+        var element = document.getElementById("wrong");
+        element.textContent = "You Did Not Pass.";
+    
         }
     }
 </script>
